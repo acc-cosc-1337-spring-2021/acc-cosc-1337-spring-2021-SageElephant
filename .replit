@@ -1,2 +1,2 @@
 language = "cpp"
-run="export CC=clang; export CXX=clang++; mkdir -p ../build; cd ../build; cmake ../acc-cosc-1337-spring-2021-SageElephant/; make; cd src/classwork/04_assign; ./cw_04_exe -s;"
+run="export CC=clang; export CXX=clang++; mkdir -p ../build; cd ../build; cmake ../acc-cosc-1337-spring-2021-SageElephant/; make; cd src/homework/04_iteration; ./hw_04_exe -s;"
