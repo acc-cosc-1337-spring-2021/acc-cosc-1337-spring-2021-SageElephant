@@ -10,30 +10,43 @@ int main()
   TicTacToe game;
   string first_player;
 
-  cout<<"Please enter first player. (Enter X or O): \n";
-  cin>> first_player;
+  do
+  {
+    cout<<"Please enter first player. (Enter X or O): \n";
+    cin>> first_player;
+
+    if (first_player == "x")
+    {
+      first_player = "X";
+    }
+    else if (first_player == "o")
+    {
+      first_player = "O";
+    }
+  }
+  while(!(first_player == "X" || first_player == "O")); //Validates first_player input to be X or O
 
   game.start_game(first_player);
 
   do
   {
     int position;
-    cout<<"Enter a position (1-9): \n";
-    cin>> position;
+
+    do
+    {
+      cout<<"Enter a position (1-9): \n";
+      cin>> position;
+    }
+    while(!(position < 10 && position > 0)); //Validates position input to be 1-9
 
     game.mark_board(position);
     
-    /* The directions don't ask for display. I used it to double check main program.
     cout<<"Displaying board: \n";
     game.display_board();
-    */
-
-    cout<<"Would you like to make another move? Type 'Y' or 'y' to move again: \n";
-    cin >> go_again;
   }
-  while(go_again == 'Y' || go_again == 'y');
+  while(!(game.game_over()));
 
-  cout<<"Thanks for playing!";
+  cout<<"GAME OVER. Thanks for playing! \n";
 
 	return 0;
 }

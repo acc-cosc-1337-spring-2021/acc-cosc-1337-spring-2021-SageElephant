@@ -85,7 +85,10 @@ bool TicTacToe::check_board_full()
 
 void TicTacToe::clear_board()
 {
-  vector<string> pegs{9, " "};
+  for(auto& peg: pegs)
+  {
+    peg = " ";
+  }
+  
+  //for(std::size_t i = 0; i < pegs.size(); i++) Old loop
 }
-
-//vector<string> pegs{" ", " ", " ", " ", " ", " ", " ", " ", " "};
