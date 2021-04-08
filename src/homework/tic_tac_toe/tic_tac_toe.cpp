@@ -6,7 +6,30 @@ using std::cout; using std::cin;
 //Public functions of class TicTacToe
 bool TicTacToe::game_over()
 {
-  return check_board_full();
+  if(check_column_win() == true)
+  {
+    set_winner();
+    return true;
+  }
+  else if(check_row_win() == true)
+  {
+    set_winner();
+    return true;
+  }
+  else if(check_diagonal_win() == true)
+  {
+    set_winner();
+    return true;
+  }
+  else if(check_board_full() == true) //This only trips if column, row, and diagonal functions return false. Thus triggers tie.
+  {
+    winner = "C"; //Stands for CAT
+    return true;
+  }
+  else //Only trips if column, row, and diagnal fcns return false AND there is no tie
+  {
+    return false;
+  }
 }
 
 void TicTacToe::start_game(string first_player)
@@ -51,7 +74,124 @@ void TicTacToe::display_board() const
     }
 }
 
+string TicTacToe::get_winner()
+{
+  return winner;
+}
+
 //Private functions of class TicTacToe
+
+bool TicTacToe::check_column_win()
+{
+  //X win conditions
+  if(pegs[0] == "X" && pegs[3] == "X" && pegs[6] == "X")
+  {
+    return true;
+  }
+  else if(pegs[1] == "X" && pegs[4] == "X" && pegs[7] == "X")
+  {
+    return true;
+  }
+  else if(pegs[2] == "X" && pegs[5] == "X" && pegs[8] == "X")
+  {
+    return true;
+  }
+  //O win condition
+  if(pegs[0] == "O" && pegs[3] == "O" && pegs[6] == "O")
+  {
+    return true;
+  }
+  else if(pegs[1] == "O" && pegs[4] == "O" && pegs[7] == "O")
+  {
+    return true;
+  }
+  else if(pegs[2] == "O" && pegs[5] == "O" && pegs[8] == "O")
+  {
+    return true;
+  }
+  else //If nobody wins, fcn returns false
+  {
+    return false;
+  }
+  
+}
+
+bool TicTacToe::check_row_win()
+{
+  //X win conditions
+  if(pegs[0] == "X" && pegs[1] == "X" && pegs[2] == "X")
+  {
+    return true;
+  }
+  else if(pegs[3] == "X" && pegs[4] == "X" && pegs[5] == "X")
+  {
+    return true;
+  }
+  else if(pegs[6] == "X" && pegs[7] == "X" && pegs[8] == "X")
+  {
+    return true;
+  }
+  //O win condition
+  if(pegs[0] == "O" && pegs[1] == "O" && pegs[2] == "O")
+  {
+    return true;
+  }
+  else if(pegs[3] == "O" && pegs[4] == "O" && pegs[5] == "O")
+  {
+    return true;
+  }
+  else if(pegs[6] == "O" && pegs[7] == "O" && pegs[8] == "O")
+  {
+    return true;
+  }
+  else //If nobody wins, fcn returns false
+  {
+    return false;
+  }
+}
+
+bool TicTacToe::check_diagonal_win()
+{
+  //X win conditions
+  if(pegs[0] == "X" && pegs[4] == "X" && pegs[8] == "X")
+  {
+    return true;
+  }
+  else if(pegs[6] == "X" && pegs[4] == "X" && pegs[2] == "X")
+  {
+    return true;
+  }
+  //O win conditions
+  if(pegs[0] == "O" && pegs[4] == "O" && pegs[8] == "O")
+  {
+    return true;
+  }
+  else if(pegs[6] == "O" && pegs[4] == "O" && pegs[2] == "O")
+  {
+    return true;
+  }
+  else //If nobody wins, fcn returns false
+  {
+    return false;
+  }
+}
+
+void TicTacToe::set_winner()  //Diagnose the backend of this fcn
+{
+  if(player == "X")
+  {
+    winner = "O";
+  }
+  else if(player == "O")
+  {
+    winner = "X";
+  }
+  else
+  {
+    cout<<"Error running set_winner function. \n";
+  }
+}
+
 
 void TicTacToe::set_next_player()
 {
@@ -92,3 +232,7 @@ void TicTacToe::clear_board()
   
   //for(std::size_t i = 0; i < pegs.size(); i++) Old loop
 }
+
+// NOTE: For clear_board function, the UML directions for the header name are conflicting between HW 6 and HW 7 documents.
+// HW 7 UML says to make clear_board a const function. 
+// This does not work, because clear_board needs to be able to write to the vector of string pegs.
