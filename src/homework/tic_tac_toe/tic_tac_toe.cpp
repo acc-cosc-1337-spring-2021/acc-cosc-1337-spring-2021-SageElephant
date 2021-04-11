@@ -66,8 +66,13 @@ void TicTacToe::display_board() const
   for(int i = 0; i < 9; i++)
     {
       cout<<pegs[i];
+
+      if(i == 0 || i == 1 || i == 3 || i == 4 || i == 6 || i == 7)
+      {
+        cout<<"|";
+      }
       
-      if(i == 2 || i == 5 || i== 8)  //Line break after first, second, and third row are printed out
+      if(i == 2 || i == 5 || i == 8)  //Line break after first, second, and third row are printed out
       {
         cout<<"\n";
       }

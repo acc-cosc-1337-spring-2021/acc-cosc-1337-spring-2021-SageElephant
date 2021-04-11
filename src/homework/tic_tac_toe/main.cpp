@@ -38,6 +38,9 @@ int main()
     {
       int position;
 
+      cout<<"Displaying board: \n";
+      game.display_board();
+
       do
       {
         cout<<"It is " << game.get_player() << "'s turn. \n"; //Use string get_player() const function to say who's turn it is.
@@ -48,11 +51,12 @@ int main()
 
       game.mark_board(position);
       
-      cout<<"Displaying board: \n";
-      game.display_board();
     }
     while(!(game.game_over()));
 
+    cout<<"Displaying board: \n";
+    game.display_board();
+    
     cout<<"GAME OVER. The winner was: " << game.get_winner() << "\n";
     cout<<"Thanks for playing! \n";
 
