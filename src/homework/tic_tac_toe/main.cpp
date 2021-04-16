@@ -5,11 +5,18 @@ using std::cout;   using std::cin;
 using std::string;
 
 #include "tic_tac_toe.h"
+#include "tic_tac_toe_manager.h"
 
 string go_again;
 
 int main() 
 {
+  TicTacToeManager manager;  //Must be outside the looping game fcn, b/c this keeps track of all the games
+  
+  int x;  //Local variables for use with get_winner_total
+  int o;
+  int t;
+
   do  //Each game
   {
   
@@ -34,36 +41,45 @@ int main()
 
     game.start_game(first_player);
 
+    cout<<game; //Origianal display of board
+
     do
     {
-      int position;
+      cin>>game;
 
-      cout<<"Displaying board: \n";
-      game.display_board();
-
-      do
-      {
-        cout<<"It is " << game.get_player() << "'s turn. \n"; //Use string get_player() const function to say who's turn it is.
-        cout<<"Enter an integer position (1-9): \n";  
-        cin>> position;
-      }
-      while(!(position <= 9 && position >= 1)); //Validates input position to be 1-9
-
-      game.mark_board(position);
-      
+      cout<<game; //This displays board (short/neat code in main)
     }
     while(!(game.game_over()));
-
-    cout<<"Displaying board: \n";
-    game.display_board();
+    
+    //At the end of every game:
+    manager.save_game(game); //Saves current game to the manager (adds TicTacToe game instance to the TicTacToeManager vector)
     
     cout<<"GAME OVER. The winner was: " << game.get_winner() << "\n";
-    cout<<"Thanks for playing! \n";
 
+    //Display the running scores (for X, O, and ties) Ex: X wins 1, O wins 5, ties 11.
+    manager.get_winner_total(o, x, t); //Fcn updates o, x, and t to the correct values
+    cout<<"Games Winning Tally: \n";
+    cout<<"O wins: " << o << "\n";
+    cout<<"X wins: " << x << "\n";
+    cout<<"Ties: " << t << "\n";
+    
     cout<<"Would you like to play again? Type 'Y' or 'y' to play again. \n";
     cin>>go_again;
   }
   while(go_again == "Y" || go_again == "y");
 	
+  cout<<"-------------------------------------------------------------------- \n";
+  cout<<"Displaying game boards history: \n";
+  cout<<manager; //Displays games history
+
+  //Display the final/running scores
+  manager.get_winner_total(o, x, t); //Fcn updates o, x, and t to the correct values
+  cout<<"Final Games Winning Tally: \n";
+  cout<<"O wins: " << o << "\n";
+  cout<<"X wins: " << x << "\n";
+  cout<<"Ties: " << t << "\n\n";
+
+  cout<<"Thanks for playing the Tic Tac Toe game. \nPlease leave a 5 star review on the app store. \n";
+  
   return 0;
 }

@@ -4,6 +4,57 @@
 using std::cout; using std::cin;
 
 //Public functions of class TicTacToe
+
+//Friend functions:
+std::ostream& operator<<(std::ostream& out, const TicTacToe& game)  //Usage: in main, cout<<game.   Replaces output to screen
+{
+  out<<"Displaying board: \n";
+
+  //Iterate through vector to display board in 3x3 format
+  for(int i = 0; i < 9; i++)
+    {
+      out<<game.pegs[i];
+
+      if(i == 0 || i == 1 || i == 3 || i == 4 || i == 6 || i == 7)
+      {
+        out<<"|";
+      }
+      
+      if(i == 2 || i == 5 || i == 8)  //Line break after first, second, and third row are printed out
+      {
+        out<<"\n";
+      }
+    }
+  return out;
+}
+
+std::istream& operator>>(std::istream& in, TicTacToe& game)   //Replaces code that captures keyboard data
+{
+  //The cin for position code that we removed from main should be in this fcn
+  //ts going to pull like game.balance (or some function)
+
+  //How much of main cin functionality do we replace with 
+
+  //Pasted from main:
+      int position;
+      
+      do
+      {
+        
+        
+        cout<<"It is " << game.get_player() << "'s turn. \n"; //Use string get_player() const function to say who's turn it is.
+        cout<<"Enter an integer position (1-9): \n";  
+        in>> position;
+      }
+      while(!(position <= 9 && position >= 1)); //Validates input position to be 1-9
+
+      game.mark_board(position); //This is moved to cin overloaded fcn
+
+      return in;
+}
+
+
+
 bool TicTacToe::game_over()
 {
   if(check_column_win() == true)
@@ -60,6 +111,7 @@ string TicTacToe::get_player() const
   return player; //Player is always X or O
 }
 
+/* Removed fcn; replaced w/ overloading
 void TicTacToe::display_board() const
 {
   //Iterate through vector to display board in 3x3 format
@@ -78,8 +130,9 @@ void TicTacToe::display_board() const
       }
     }
 }
+*/
 
-string TicTacToe::get_winner()
+string TicTacToe::get_winner() const
 {
   return winner;
 }
