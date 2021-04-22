@@ -8,11 +8,12 @@ using std::cin; using std::cout;
 using std::vector;
 
 //Public fcns
-void TicTacToeManager::save_game(TicTacToe b)
+void TicTacToeManager::save_game(unique_ptr<TicTacToe>& b)
 {
-  games.push_back(b); 
-
-  update_winner_count(b.get_winner());
+  update_winner_count(b->get_winner());
+  
+  games.push_back(std::move(b));  //FIX Add the move statement to game variable; check notes on how to execute that
+  
 }
 
 std::ostream& operator<<(std::ostream& out, const TicTacToeManager& manager) //Friend fcn
@@ -20,7 +21,7 @@ std::ostream& operator<<(std::ostream& out, const TicTacToeManager& manager) //F
   //Usage of this fcn will look like:  cout<<manager
   for(auto& game: manager.games)
   {
-    out<<game;
+    out<<*game;  //either out<<*game  or out<<&game  or out<<game
     out<<"\n";
   }
 
