@@ -324,9 +324,9 @@ void TicTacToe::set_next_player()
 bool TicTacToe::check_board_full()
 {
   //Check for " " (space) in board string vector
-  for(auto i = 0; i < 9; i++)    //Iterate through vector values
+  for(string peg : pegs)
   {
-    if(pegs[i] == " ")
+    if(peg == " ")
     {
       return false;
     }
