@@ -27,9 +27,11 @@ protected:
 
 public: //Access Specifier
   //Constructors:
+  TicTacToe(vector <string> p, string win) : pegs(p), winner(win){} //FIX !!! Write code here to initialize the pegs vector with p and initialize vector
   TicTacToe(){} //Default synthesized constructor;  FIX BOTH OF THESE
   TicTacToe(int size) : pegs(size*size, " "){}//Initializes 9 or 16 elements depending on input
   
+  vector<string> get_pegs() const {return pegs;} //NEW 
   bool game_over(); //Account for someone winning on the 9th mark.
   void start_game(string first_player);
   void mark_board(int position);

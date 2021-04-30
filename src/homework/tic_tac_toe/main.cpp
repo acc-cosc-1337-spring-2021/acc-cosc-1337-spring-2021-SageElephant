@@ -6,6 +6,7 @@ using std::string;
 
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_manager.h"
+#include "tic_tac_toe_data.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
 
@@ -14,8 +15,9 @@ string go_again;
 int main() 
 {
   
-  
-  TicTacToeManager manager;  //Must be outside the looping game fcn, b/c this keeps track of all the games
+  TicTacToeData data;
+  TicTacToeManager manager(data);  //CHECK passing in data as argument
+  //Must be outside the looping game fcn, b/c this keeps track of all the games
   
   int x;  //Local variables for use with get_winner_total
   int o;
@@ -110,7 +112,7 @@ int main()
 
   //Display the final/running scores
   manager.get_winner_total(o, x, t); //Fcn updates o, x, and t to the correct values
-  cout<<"Final Games Winning Tally: \n";
+  cout<<"Cumulative Games Winning Tally: \n";
   cout<<"O wins: " << o << "\n";
   cout<<"X wins: " << x << "\n";
   cout<<"Ties: " << t << "\n\n";

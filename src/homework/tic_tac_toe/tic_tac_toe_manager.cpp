@@ -7,6 +7,24 @@ using std::cin; using std::cout;
 #include<vector>
 using std::vector;
 
+//Public Constructor
+TicTacToeManager::TicTacToeManager(TicTacToeData d) : data{d}   //CHECK FIX
+{
+  games = data.get_games();  //sets manager's games vector to the data's vector of games (that it fetches from dat file)
+
+  for(auto& game : games)
+  {
+    update_winner_count(game->get_winner());
+  }
+}
+
+//Public Destructor:
+TicTacToeManager::~TicTacToeManager()
+{
+  cout<<"\n Saving games... \n";
+  data.save_games(games);  //Check. It should be able to pass in the manager's private vector games.
+}
+
 //Public fcns
 void TicTacToeManager::save_game(unique_ptr<TicTacToe>& b)
 {
